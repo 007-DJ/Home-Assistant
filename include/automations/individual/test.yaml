@@ -1,0 +1,18 @@
+id: 'test_automation'
+alias: Test automation
+description:
+trigger:
+- platform: numeric_state
+  entity_id: input_number.room
+  above: '1'
+  below: '3'
+condition: []
+action:
+- service: notify.alexa_media
+  data:
+    message: Automation in YAML works.
+    title: title for message
+    target: media_player.computerroom
+    data:
+      type: announce
+mode: single
