@@ -1,0 +1,61 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+automation: !include automations.yaml
+
+homeassistant:
+  name: 007 Home Assistant
+  latitude: 43.02232942222318
+  longitude: -71.20960235595705
+  elevation: 430
+  unit_system: imperial
+  currency: USD
+  time_zone: "America/New_York"
+  external_url: "https://007DJ.DuckDNS.org"
+  internal_url: "http://homeassistant.local:8123"
+#  allowlist_external_dirs:
+#  allowlist_external_urls:
+#  media_dirs:
+#    media: "/media"
+#    recordings: "/mnt/recordings"
+  legacy_templates: false
+  customize: !include include/customize.yaml
+#  packages: !include_dir_named include/
+http:
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+alexa_media:
+  accounts:
+    - email: !secret amazon_user
+      password: !secret amazon_password
+      url: amazon.com
+notify:
+  - name: 007DJ-Surveilance
+    platform: smtp
+    server: mail.myfairpoint.net
+    port: 1025
+    sender: !secret 007Surveilance_fairpoint_email
+    username: !secret 007Surveilance_fairpoint_email
+    password: !secret 007Surveilance_fairpoint_password
+    recipient: !secret verizon_0415
+#   recipient: roger.j.moore@comcast.net
+    sender_name: Home Assistant Automation
+
+group: !include include/groups.yaml
+#automation ui-automation: !include automations.yaml
+#: !include_dir_list include/automation
+#automation split: !include_dir_list automation
+script: !include include/scripts.yaml
+scene: !include include/scenes.yaml
+
+##Actionable Notifications
+input_text:
+  alexa_actionable_notification:
+    name: Alexa Actionable Notification Holder
+    max: 255
+    initial: '{"text": "This is a test of the alexa actions custom skill. Did it work?", "event": "actionable.skill.test"}'

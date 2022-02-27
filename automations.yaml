@@ -1,0 +1,18 @@
+- id: '1645980916677'
+  alias: uiat
+  description: Automation in UI
+  trigger:
+  - platform: numeric_state
+    entity_id: input_number.room
+    above: '1'
+    below: '3'
+  condition: []
+  action:
+  - service: notify.alexa_media
+    data:
+      message: Automation in UI works.
+      title: title for message
+      target: media_player.computerroom
+      data:
+        type: announce
+  mode: single
