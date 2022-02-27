@@ -1,0 +1,18 @@
+##File location: /config/include/automations/other.yaml
+alias: 'other'
+description: Include dir Automation test #2
+trigger:
+  - platform: numeric_state
+    entity_id: input_number.room
+    above: '2'
+    below: '4'
+condition: []
+action:
+  - service: notify.alexa_media
+    data:
+      message: Stand Alone Test 2 works.
+      title: title for message
+      target: media_player.computerroom
+      data:
+        type: announce
+mode: single
